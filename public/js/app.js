@@ -192,7 +192,7 @@ sendBtn.addEventListener('click', (e) => {
     } else {
         console.log("answer=", inputText.value);
         console.log("country=", inputCountry.value);
-        /*console.log("num=", count);*/
+
         async function postData() {
 
             const data = {
@@ -200,10 +200,6 @@ sendBtn.addEventListener('click', (e) => {
               country: inputCountry.value,
               date: Date.now()
             };
-            
-            /*const numCount = {
-              num: count
-            }; */
 
             form.reset();
 
@@ -212,13 +208,13 @@ sendBtn.addEventListener('click', (e) => {
               headers: {
               'Content-Type': 'application/json'
               },
-              body: JSON.stringify(data)/*,
-              body2: JSON.stringify(numCount)*/
+              body: JSON.stringify(data)
+             
             };
 
             const response = await fetch('/api', options);
-            const json = await response.json(data/*, numCount*/);
-            console.log(data/*, numCount*/);
+            const json = await response.json(data);
+            console.log(data);
 
 
             addCount();

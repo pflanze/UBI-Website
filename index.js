@@ -8,8 +8,7 @@ app.use(express.json({ limit: '1mb'}));
 
 const database = new Datastore('database.db');
 database.loadDatabase();
-/*const numCountdb = new Datastore('numCount.db');
-numCountdb.loadDatabase();*/
+
 
 app.get('/api',  (request, response) => {
     database.find({}, (err, data) => {
@@ -19,14 +18,6 @@ app.get('/api',  (request, response) => {
         }
         response.json(data)
     });
-/*
-    numCountdb.find({},(err, numCount) => {
-        if (err) {
-            response.end();
-            return;
-        }
-        response.json(numCount)
-    })*/
 });
 
 app.post('/api', (request, response) => {
@@ -35,6 +26,5 @@ app.post('/api', (request, response) => {
     const data = request.body;
     database.insert(data);
     response.json(data);
-    /*numCountdb.insert(data);
-    response.json(data);*/
+
 });

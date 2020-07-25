@@ -169,7 +169,7 @@ const sendBtn = document.querySelector(".sendBtn");
 var collectionBtn = document.getElementById("collectionBtn");
 const collectionPage = document.getElementById("collectionPage");
 const collection = document.getElementById("answer-collection");
-var count = 0;
+var count;
 
 
 // input limit-counter, not finished yet
@@ -216,43 +216,46 @@ sendBtn.addEventListener('click', (e) => {
             const json = await response.json(data);
             console.log(data);
 
-
-            addCount();
-            function addCount () {
-            count += 1;
-            collectionBtn.textContent = count;
-            console.log(collectionBtn.textContent);
-            };
         };
         postData ();
         talkModal.style.display = "none";
 
-        async function getData() {
-          const response = await fetch('/api');
-          const data = await response.json();
-          console.log("response=", response);
-          console.log("data=", data);
-          count = data.length;
 
-          for (item of data) {
-            const answer = document.createElement('div');
-            const country = document.createElement('div');
-            const date = document.createElement('div');
-      
-            answer.textContent = `${item.answer}`;
-            country.textContent = `${item.country}`;
-            const dateString = new Date(item.date).toLocaleString();
-            date.textContent = dateString;
-            collection.append(answer, country, date);
-          };
-        };
-        getData();
         alert("Thank you for your input!")
       };
 // if all modal windows are closed, display the answer-collection page
       noModal();
+
 });
 
+
+
+async function getData() {
+  const response = await fetch('/api');
+  const data = await response.json();
+  console.log("response=", response);
+  console.log("data=", data);
+  count = data.length;
+  collectionBtn.textContent = count;
+
+  for (item of data) {
+    const answer = document.createElement('div');
+    const country = document.createElement('div');
+    const date = document.createElement('div');
+
+    answer.textContent = `${item.answer}`;
+    country.textContent = `${item.country}`;
+    const dateString = new Date(item.date).toLocaleString();
+    date.textContent = dateString;
+    collection.append(answer, country, date);
+  };
+};
+getData();
+
+// whenever there is an update in data, update the page as well
+function dataUpdate() {
+  
+}
 
 // by clicking the answer-collection button, display the page
 collectionBtn.addEventListener('click',  () => {

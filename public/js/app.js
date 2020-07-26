@@ -33,7 +33,8 @@ function noModal() {
 };
 
 
-// specific iBtn & iModal function
+// brings iModal forward when clicking iBtn 
+// and closes iModal when clicking again
 iBtn.onclick = function() {
   if(iModal.style.display === "none") {
     iModal.style.display = "block";
@@ -43,9 +44,12 @@ iBtn.onclick = function() {
   } else {
     iModal.style.display = "none";
   }
+
+  //displays collectionPage
   noModal();
 };
 
+//clicking anywhere besides these buttons closes iModal
 document.addEventListener('click', function(event) {
   const isClickInsideiBtn = iBtn.contains(event.target);
   const isClickInsideiModal = iModal.contains(event.target);
@@ -59,10 +63,13 @@ document.addEventListener('click', function(event) {
      ! isClickInsidetalkBtn && !isClickInsidewhatBtn) {
     iModal.style.display = "none";
   } 
+
+  //displays collectionPage
   noModal();
 });
 
-// z-index hierarchy of Modals
+
+// brings z-index hierarchy of Modals forward with a click
 
 document.addEventListener('click', function(event) {
   const isClickInsidetalkModal = talkModal.contains(event.target);
@@ -83,13 +90,14 @@ document.addEventListener('click', function(event) {
 
 
 
-// When the user clicks on the button, open the modal
+// When the user clicks on the NavBar button, open the modal
 talkBtn.onclick = function() {
   talkModal.style.display = "block";
 };
 whatBtn.onclick = function() {
     whatModal.style.display = "block";
   };
+
 
 // When the user clicks on <span> (x), close the modal
 talkClose.onclick = function() {
@@ -100,6 +108,7 @@ whatClose.onclick = function() {
   whatModal.style.display = "none";
   noModal();
 };
+
 
 // Copy email from whatModal
 function copyEmail() {
@@ -159,7 +168,7 @@ function dragElement(elmnt) {
 };
 
 
-//ANSWERS STORAGE
+//ANSWER SUBMISSIONS DATA STORAGE
 
   //Get four elements and assign them to variables.
 const form = document.getElementById("input-form");
@@ -172,13 +181,13 @@ const collection = document.getElementById("answer-collection");
 var count;
 
 
-// input limit-counter, not finished yet
-function CountRemaining(string, targetcounter, limit) {
-    var limit = 600;
-    var count = document.getElementById(string).value.length;
-    document.getElementById(targetcounter).innerHTML = ((limit-count) + " characters left");
-    setTimeout(function(){ CountRemaining(string, targetcounter, limit); },50);
+// counts the text of input when typing
+function CountRemaining() {
+    var stringCount = document.getElementById("answer-text").value.length;
+    document.getElementById("stringCounter").textContent = stringCount + "/600";
+    setTimeout(function(){ CountRemaining(); },50);
 };
+CountRemaining();
 
 
 
@@ -254,7 +263,7 @@ getData();
 
 // whenever there is an update in data, update the page as well
 function dataUpdate() {
-  
+
 }
 
 // by clicking the answer-collection button, display the page

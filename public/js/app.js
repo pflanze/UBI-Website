@@ -17,44 +17,44 @@ const whatBtn = document.getElementById("whatBtn");
 const talkClose = document.getElementsByClassName("talk-close")[0];
 const whatClose = document.getElementsByClassName("what-close")[0];
 
+// brings iModal forward when clicking iBtn 
+// and closes iModal when clicking again
+iBtn.addEventListener('click', function() {
+  if(iModal.style.display === "none") {
+    iModal.style.display = "block";
+    iModal.style.zIndex = "1";
+    whatModal.style.zIndex = "0";
+    talkModal.style.zIndex = "0";
+  } else {
+    iModal.style.display = "none";
+  };
+
+  //displays collectionPage
+  noModal();
+});
+
+
 /* if all modal windows are closed, display collectionPage,
 but if collectionPage is already displayed, make no change. */
 function noModal() {
   if (talkModal.style.display !== "block" && (iModal.style.display !== "block" && whatModal.style.display !== "block")){
     loadCollectionPage();
   } else if (collectionPage.style.display === "block") {
-    collectionPage.style.display = "block"
+    collectionPage.style.display = "block";
   } else {
-    collectionPage.style.display = "none"
+    collectionPage.style.display = "none";
   };
 };
 
 function loadCollectionPage() {
+  const topBarGrid = document.querySelector(".TOP-BAR-GRID");
+  topBarGrid.style.backgroundColor = "white";
   iBtn.style.color = "black";
   iBtn.style.borderColor = "black";
   collectionPage.style.display = "block";
   body.style.background = "white";
-  const topBarGrid = document.querySelector(".TOP-BAR-GRID")
-  topBarGrid.style.backgroundColor = "white";
 }
 
-
-// brings iModal forward when clicking iBtn 
-// and closes iModal when clicking again
-iBtn.onclick = function() {
-  if(iModal.style.display === "none") {
-    iModal.style.display = "block";
-    iModal.style.zIndex = "2";
-    whatModal.style.zIndex = "1";
-    talkModal.style.zIndex = "1";
-
-  } else {
-    iModal.style.display = "none";
-  }
-
-  //displays collectionPage
-  noModal();
-};
 
 //clicking anywhere besides these buttons closes iModal
 document.addEventListener('click', function(event) {
@@ -77,7 +77,6 @@ document.addEventListener('click', function(event) {
 
 
 // brings z-index hierarchy of Modals forward with a click
-
 document.addEventListener('click', function(event) {
   const isClickInsidetalkModal = talkModal.contains(event.target);
   const isClickInsidewhatModal = whatModal.contains(event.target);
@@ -85,13 +84,13 @@ document.addEventListener('click', function(event) {
   const isClickInsidewhatBtn = whatBtn.contains(event.target);
   
   if (isClickInsidetalkModal || isClickInsidetalkBtn) {
-    talkModal.style.zIndex = "2";
-    iModal.style.zIndex = "1";
-    whatModal.style.zIndex = "1";
-  } else if (isClickInsidewhatModal || isClickInsidewhatBtn) {
-    whatModal.style.zIndex = "2";
-    iModal.style.zIndex = "1";
     talkModal.style.zIndex = "1";
+
+    whatModal.style.zIndex = "0";
+  } else if (isClickInsidewhatModal || isClickInsidewhatBtn) {
+    whatModal.style.zIndex = "1";
+
+    talkModal.style.zIndex = "0";
   };
 });
 

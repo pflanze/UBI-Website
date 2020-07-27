@@ -19,49 +19,51 @@
   <!-----------------------------------------CONTAINER -------------------------------------------->
   <div class="container-fluid no-fouc">
     
+    <div class="iGrid" style="top:15px; left:15px;"> <!-----  iBtn & iMODAL GRID ----->
+      <!-- iBtn & iMODAL -->
+      <div class="iBtn" style="top:15px; left:10px;">
+        <button id="iBtn"> 
+          &nbsp; i &nbsp; 
+        </button>
+      </div>
+
+
+      <!-- iMODAL -->
+      <div id="iModal" class="iModal modal">
+          <div class="credit">
+
+            <p>
+              Concept and initiative: <br>
+              Jonas W. Bundgaard,  Amanda-Li Kollberg, <br>
+              Svenja Prigge, Siri Lee Lindskrog, <br>
+              John Seung-Hwan Lee
+            </p>
+
+            <p>
+              Website Design: <br>
+              Studio jetzt-immer 
+            </p>
+
+            <p>
+              Web development: <br>
+              John Seung-Hwan Lee 
+            </p>
+
+            <p>
+              Typeface: <br>
+              AUTHENTIC Sans by Authentic<br>
+              Business Company LLC.
+            </p>
+
+          </div>
+      </div> <!-- closing iMODAL-->
+    </div> <!-- closing iMODAL & iBtn GRID-->
+
 
     <!-------------------------------- TOP BAR  -------------------------------->
     <div name="TOP-BAR-GRID" class="TOP-BAR-GRID row row-no-gutters col-12">
       
-      <div class="col-xs-3 col-md-6" style="left:15px;"> <!-----  iBtn & iMODAL GRID ----->
-        <!-- iBtn & iMODAL -->
-        <div class="iModal">
-          <button id="iBtn"> 
-            &nbsp; i &nbsp; 
-          </button>
-        </div>
-
-
-        <!-- iMODAL -->
-        <div id="iModal" class="iModal modal">
-            <div class="credit">
-
-              <p>
-                Concept and initiative: <br>
-                Jonas W. Bundgaard,  Amanda-Li Kollberg, <br>
-                Svenja Prigge, Siri Lee Lindskrog, <br>
-                John Seung-Hwan Lee
-              </p>
-
-              <p>
-                Website Design: <br>
-                Studio jetzt-immer 
-              </p>
-
-              <p>
-                Web development: <br>
-                John Seung-Hwan Lee 
-              </p>
-
-              <p>
-                Typeface: <br>
-                AUTHENTIC Sans by Authentic<br>
-                Business Company LLC.
-              </p>
-
-            </div>
-        </div> <!-- closing iMODAL-->
-      </div> <!-- closing iMODAL & iBtn GRID-->
+      <div class="filler col-xs-3 col-md-6"></div>
 
       <!--talkBtn-->
       <div class="col-xs-3 col-md-2" style="bottom:15px;">
@@ -80,6 +82,8 @@
 
 
     </div> <!--------------------- closing TOP BAR ------------------------>
+
+
 
 
 
@@ -162,7 +166,7 @@
 
     <!------------------------------------ numCntPage -------------------------------------->
     <div id="collectionPage" class="row row-no-gutters ">
-    <div id="answer-collection" onchange="dataChange();"></div>
+    <div id="answer-collection"></div>
     </div>
 
   </div> <!-------------------------------- closing CONTAINER --------------------------------->

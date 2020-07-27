@@ -23,8 +23,9 @@ body {
 }
 
 .TOP-BAR-GRID{
-  padding-top: 20px;
-  position:fixed;
+  top: 0px;
+  padding-top:10px;
+  position: fixed;
 }
 
 .app-title {
@@ -45,6 +46,13 @@ body {
 
 
 /* BUTTONS */
+
+.iGrid{
+  position:fixed;
+  z-index:1;
+ 
+}
+
 #iBtn {
   background-color: transparent;
   color: white;
@@ -102,10 +110,10 @@ body {
 
  /* MODAL WINDOW */
 #iModal {
-  position: absolute;
+  position: fixed;
   display: none; /* hidden by default */
   text-align: left;
-  top: -4px;
+  top: 10px;
   left: 65px;
   border: 3px solid black;
   border-radius: 15px;
@@ -114,6 +122,7 @@ body {
   height: 400px; 
   overflow: auto; /* Enable scroll if needed */
   background-color:  white; /* Black w/ opacity */
+  z-index: 1;
 }
 
  #talkModal {
@@ -130,6 +139,7 @@ body {
   overflow: auto; /* Enable scroll if needed */
   overflow-y: auto;
   background-color: black; /* Black w/ opacity */
+  z-index: 1;
 }
 #talkModalHeader {
   padding: 10px;
@@ -149,8 +159,8 @@ body {
   border-radius: 15px;
   width: 600px;
   height: 500px; 
- 
   background-color:  white; /* Black w/ opacity */
+  z-index: 1;
 }
 #whatModalHeader {
   padding: 10px;
@@ -257,7 +267,7 @@ body {
   display: none; /* hides by default */
   overflow: auto; /* Enable scroll if needed */
   top: -50px;
-  padding: 50px 20px 0px 20px;
+  padding: 200px 20px 0px 20px;
   width: 100%;
   height: 100%;
 }

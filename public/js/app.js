@@ -21,10 +21,7 @@ const whatClose = document.getElementsByClassName("what-close")[0];
 but if collectionPage is already displayed, make no change. */
 function noModal() {
   if (talkModal.style.display !== "block" && (iModal.style.display !== "block" && whatModal.style.display !== "block")){
-    collectionPage.style.display = "block";
-    body.style.background = "white";
-    iBtn.style.color = "black";
-    iBtn.style.borderColor = "black";
+    loadCollectionPage();
   } else if (collectionPage.style.display === "block") {
     collectionPage.style.display = "block"
   } else {
@@ -32,15 +29,25 @@ function noModal() {
   };
 };
 
+function loadCollectionPage() {
+  iBtn.style.color = "black";
+  iBtn.style.borderColor = "black";
+  collectionPage.style.display = "block";
+  body.style.background = "white";
+  const topBarGrid = document.querySelector(".TOP-BAR-GRID")
+  topBarGrid.style.backgroundColor = "white";
+}
+
 
 // brings iModal forward when clicking iBtn 
 // and closes iModal when clicking again
 iBtn.onclick = function() {
   if(iModal.style.display === "none") {
     iModal.style.display = "block";
+    iModal.style.zIndex = "2";
     whatModal.style.zIndex = "1";
     talkModal.style.zIndex = "1";
-    iModal.style.zIndex = "2";
+
   } else {
     iModal.style.display = "none";
   }
@@ -201,7 +208,8 @@ function dataChange(){
 dataChange();
 */
 
-
+// stores json data _id from database to avoid redundant appending on display
+const dataID = [];
 
 // GET w/ fetch()
 async function getData() {
@@ -211,17 +219,19 @@ async function getData() {
         console.log("data=", data);
         var count = data.length;
         collectionBtn.textContent = count;
-
+        
 
         //create divs for each data property
         //and return the data as one unit
             for (item of data) {
+              if (dataID.includes(item._id) !== true){
+             
                 const answer = document.createElement('div');
                 const country = document.createElement('div');
                 const date = document.createElement('div');
+                //const data = `${item._id}`;
                 const dataUnit = document.createElement("div");
-           
-
+                 
                 //puts each item of data into a unit to display in HTML
                 answer.textContent = `${item.answer}`;
                 country.textContent = `${item.country}`;
@@ -229,6 +239,9 @@ async function getData() {
                 date.textContent = dateString;
                 dataUnit.append(answer, country, date);
                 collection.append(dataUnit)
+                dataID.push(item._id);
+              }
+                
             };
 };
 
@@ -253,62 +266,9 @@ async function getData() {
                 appendNewData();
             };
       };
-
 */
 
 getData();
-
-console.log("break");
-
-
-/*
-function getNewData() {
-        const response = await fetch('/api');
-        const data = await response.json();
-        var count = data.length;
-        collectionBtn.textContent = count;
-
-        for (item of data) {
-          const answer = document.createElement('div');
-          const country = document.createElement('div');
-          const date = document.createElement('div');
-          const newDataUnit = document.createElement("div");
-
-          //puts each item of data into a unit to display in HTML
-          answer.textContent = `${item.answer}`;
-          country.textContent = `${item.country}`;
-          const dateString = new Date(item.date).toLocaleString();
-          date.textContent = dateString;
-          newDataUnit.classList.add("newData")
-          newDataUnit.append(answer, country, date);
-          collection.append(dataUnit);
-      };
-    if ($(dataUnit).hasClass("newData")) {
-      // append dataUnit with "dataInCollection" class to collection
-      collection.append(document.getElementsByClassName("newData"));
-      //add a unit of data a class of "dataInCollection" to distinguish it from 'new post() data' 
-      dataUnit.classList.remove("newData");
-    };
-}
-getNewData();
-console.log(document.getElementsByClassName("dataInCollection"))
-/*
-
-
-/*
-function appendToCollection(data){
-    if (!$(data).hasClass("dataInCollection")) {
-        // append dataUnit with "dataInCollection" class to collection
-        collection.append(data);
-        //add a unit of data a class of "dataInCollection" to distinguish it from 'new post() data' 
-        data.classList.add("dataInCollection");
-    };
-};
-appendToCollection();
-*/
-
-
-
 
 
 
@@ -346,6 +306,7 @@ sendBtn.addEventListener('click', (e) => {
             const json = await response.json(data);
             console.log(data);
 
+
         };
 
         postData();
@@ -353,7 +314,7 @@ sendBtn.addEventListener('click', (e) => {
         talkModal.style.display = "none";
       };
 
-// if all modal windows are closed, display the answer-collection page
+      // if all modal windows are closed, display the answer-collection page
       noModal();
 
 });
@@ -369,8 +330,7 @@ sendBtn.addEventListener('click', (e) => {
 
 // by clicking the answer-collection button, display the page
 collectionBtn.addEventListener('click',  () => {
- collectionPage.style.display = "block";
- body.style.background = "white";
+ loadCollectionPage();
 })
 
 

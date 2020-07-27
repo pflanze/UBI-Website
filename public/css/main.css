@@ -31,32 +31,17 @@ body {
 }
 
 /* COUNTRY DROPDOWN */
-.demo-non-form {
-  color: initial;
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0 12px 0;
-  border: 1px solid #ccc;
-  border-radius: 0;
-  font-family: arial, verdana, sans-serif;
-  font-size: 14px;
-  box-sizing: border-box;
-  -webkit-appearance: none;
+.country-selector {
+  position: relative;
+  margin-left: 30px;
+  color: white;
 }
 
-.demo-container {
-  padding: 0 1em;
+.country-selector select {
+
 }
 
-.external-container {
-  display: flex;
-}
 
-.external-container button.external-button {
-  font-weight: 400;
-  padding: 10px;
-  margin: 6px 0 12px 16px;
-}
 
 /* BUTTONS */
 #iBtn {

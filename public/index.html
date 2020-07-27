@@ -115,9 +115,9 @@
               </button>
             </div>
 
-            <div style='text-align:center;'>
+            <div class="country-selector" style='text-align:center;'>
               <script type= "text/javascript" src = "js/countries.js"></script>
-              Select Country:   
+              Where do you live now?    
               <select id="country" name ="country"></select>
             </div>
             <script language="javascript">
@@ -162,7 +162,7 @@
 
     <!------------------------------------ numCntPage -------------------------------------->
     <div id="collectionPage" class="row row-no-gutters ">
-      <div id="answer-collection"></div>
+    <div id="answer-collection" onchange="dataChange();"></div>
     </div>
 
   </div> <!-------------------------------- closing CONTAINER --------------------------------->

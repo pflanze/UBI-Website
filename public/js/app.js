@@ -168,7 +168,7 @@ function dragElement(elmnt) {
 };
 
 
-//ANSWER SUBMISSIONS DATA STORAGE
+//ANSWER SUBMISSIONS and DATA STORAGE
 
   //Get four elements and assign them to variables.
 const form = document.getElementById("input-form");
@@ -178,20 +178,141 @@ const sendBtn = document.querySelector(".sendBtn");
 var collectionBtn = document.getElementById("collectionBtn");
 const collectionPage = document.getElementById("collectionPage");
 const collection = document.getElementById("answer-collection");
-var count;
+
 
 
 // counts the text of input when typing
 function CountRemaining() {
     var stringCount = document.getElementById("answer-text").value.length;
     document.getElementById("stringCounter").textContent = stringCount + "/600";
-    setTimeout(function(){ CountRemaining(); },50);
+    setTimeout(function(){ CountRemaining(); },0);
 };
+
 CountRemaining();
 
+/*
+//right now the collectionBtn is not working properly
+// because it doesn't get the full data
+function dataChange(){
+  getNewData();
+  collectionBtn.style.color = "red";
+  setTimeout(function(){collectionBtn.style.color = "grey";},1000);
+  };
+dataChange();
+*/
 
 
-// POST and GET w/ fetch()
+
+// GET w/ fetch()
+async function getData() {
+        const response = await fetch('/api');
+        const data = await response.json();
+        console.log("response=", response);
+        console.log("data=", data);
+        var count = data.length;
+        collectionBtn.textContent = count;
+
+
+        //create divs for each data property
+        //and return the data as one unit
+            for (item of data) {
+                const answer = document.createElement('div');
+                const country = document.createElement('div');
+                const date = document.createElement('div');
+                const dataUnit = document.createElement("div");
+           
+
+                //puts each item of data into a unit to display in HTML
+                answer.textContent = `${item.answer}`;
+                country.textContent = `${item.country}`;
+                const dateString = new Date(item.date).toLocaleString();
+                date.textContent = dateString;
+                dataUnit.append(answer, country, date);
+                collection.append(dataUnit)
+            };
+};
+
+
+/*
+//Failed Attempt to distinguish the data by adding "old" and "new" class
+                function appendNewData(){
+                  // if the element has old class, then do thing
+                  // if the element doesn't have any class, then add class "new"
+                  // only append to collection "new" class
+                  dataUnit.append(answer, country, date);
+                  dataUnit.classList.add("dataUnit");
+                  $(".dataUnit").filter(':not([class])').addClass('new');
+
+                  console.log(document.getElementsByClassName("new"));
+
+                  collection.append(document.getElementsByClassName("new"));
+                  
+                  $(".new").addClass("old");
+                  $('.old').removeClass("new");
+                }
+                appendNewData();
+            };
+      };
+
+*/
+
+getData();
+
+console.log("break");
+
+
+/*
+function getNewData() {
+        const response = await fetch('/api');
+        const data = await response.json();
+        var count = data.length;
+        collectionBtn.textContent = count;
+
+        for (item of data) {
+          const answer = document.createElement('div');
+          const country = document.createElement('div');
+          const date = document.createElement('div');
+          const newDataUnit = document.createElement("div");
+
+          //puts each item of data into a unit to display in HTML
+          answer.textContent = `${item.answer}`;
+          country.textContent = `${item.country}`;
+          const dateString = new Date(item.date).toLocaleString();
+          date.textContent = dateString;
+          newDataUnit.classList.add("newData")
+          newDataUnit.append(answer, country, date);
+          collection.append(dataUnit);
+      };
+    if ($(dataUnit).hasClass("newData")) {
+      // append dataUnit with "dataInCollection" class to collection
+      collection.append(document.getElementsByClassName("newData"));
+      //add a unit of data a class of "dataInCollection" to distinguish it from 'new post() data' 
+      dataUnit.classList.remove("newData");
+    };
+}
+getNewData();
+console.log(document.getElementsByClassName("dataInCollection"))
+/*
+
+
+/*
+function appendToCollection(data){
+    if (!$(data).hasClass("dataInCollection")) {
+        // append dataUnit with "dataInCollection" class to collection
+        collection.append(data);
+        //add a unit of data a class of "dataInCollection" to distinguish it from 'new post() data' 
+        data.classList.add("dataInCollection");
+    };
+};
+appendToCollection();
+*/
+
+
+
+
+
+
+// POST w/ fetch()
 sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -226,45 +347,25 @@ sendBtn.addEventListener('click', (e) => {
             console.log(data);
 
         };
-        postData ();
+
+        postData();
+        getData();
         talkModal.style.display = "none";
-
-
-        alert("Thank you for your input!")
       };
+
 // if all modal windows are closed, display the answer-collection page
       noModal();
 
 });
 
 
-
-async function getData() {
-  const response = await fetch('/api');
-  const data = await response.json();
-  console.log("response=", response);
-  console.log("data=", data);
-  count = data.length;
-  collectionBtn.textContent = count;
-
-  for (item of data) {
-    const answer = document.createElement('div');
-    const country = document.createElement('div');
-    const date = document.createElement('div');
-
-    answer.textContent = `${item.answer}`;
-    country.textContent = `${item.country}`;
-    const dateString = new Date(item.date).toLocaleString();
-    date.textContent = dateString;
-    collection.append(answer, country, date);
-  };
-};
-getData();
-
 // whenever there is an update in data, update the page as well
-function dataUpdate() {
-
+/* function dataUpdate() {
+  if (collection = ) {
+    getExistingData()
+  }
 }
+*/
 
 // by clicking the answer-collection button, display the page
 collectionBtn.addEventListener('click',  () => {

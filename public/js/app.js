@@ -20,78 +20,78 @@ const whatClose = document.getElementsByClassName("what-close")[0];
 // brings iModal forward when clicking iBtn 
 // and closes iModal when clicking again
 iBtn.addEventListener('click', function() {
-  if(iModal.style.display === "none") {
-    iModal.style.display = "block";
-    iModal.style.zIndex = "1";
-    whatModal.style.zIndex = "0";
-    talkModal.style.zIndex = "0";
-  } else {
-    iModal.style.display = "none";
-  };
+    if(iModal.style.display === "none") {
+      iModal.style.display = "block";
+      iModal.style.zIndex = "1";
+      whatModal.style.zIndex = "0";
+      talkModal.style.zIndex = "0";
+    } else {
+      iModal.style.display = "none";
+    };
 
-  //displays collectionPage
-  noModal();
+    //displays collectionPage
+    noModal();
 });
 
 
 /* if all modal windows are closed, display collectionPage,
 but if collectionPage is already displayed, make no change. */
 function noModal() {
-  if (talkModal.style.display !== "block" && (iModal.style.display !== "block" && whatModal.style.display !== "block")){
-    loadCollectionPage();
-  } else if (collectionPage.style.display === "block") {
-    collectionPage.style.display = "block";
-  } else {
-    collectionPage.style.display = "none";
-  };
+    if (talkModal.style.display !== "block" && (iModal.style.display !== "block" && whatModal.style.display !== "block")){
+      loadCollectionPage();
+    } else if (collectionPage.style.display === "block") {
+      collectionPage.style.display = "block";
+    } else {
+      collectionPage.style.display = "none";
+    };
 };
 
 function loadCollectionPage() {
-  const topBarGrid = document.querySelector(".TOP-BAR-GRID");
-  topBarGrid.style.backgroundColor = "white";
-  iBtn.style.color = "black";
-  iBtn.style.borderColor = "black";
-  collectionPage.style.display = "block";
-  body.style.background = "white";
+    const topBarGrid = document.querySelector(".TOP-BAR-GRID");
+    topBarGrid.style.backgroundColor = "white";
+    iBtn.style.color = "black";
+    iBtn.style.borderColor = "black";
+    collectionPage.style.display = "block";
+    body.style.background = "white";
 }
 
 
 //clicking anywhere besides these buttons closes iModal
 document.addEventListener('click', function(event) {
-  const isClickInsideiBtn = iBtn.contains(event.target);
-  const isClickInsideiModal = iModal.contains(event.target);
-  const isClickInsidetalkClose = talkClose.contains(event.target);
-  const isClickInsidewhatClose = whatClose.contains(event.target);
-  const isClickInsidetalkBtn = talkBtn.contains(event.target);
-  const isClickInsidewhatBtn = whatBtn.contains(event.target);
- 
-  if (!isClickInsideiBtn && !isClickInsideiModal &&
-     !isClickInsidetalkClose && !isClickInsidewhatClose && 
-     ! isClickInsidetalkBtn && !isClickInsidewhatBtn) {
-    iModal.style.display = "none";
-  } 
+    const isClickInsideiBtn = iBtn.contains(event.target);
+    const isClickInsideiModal = iModal.contains(event.target);
+    const isClickInsidetalkClose = talkClose.contains(event.target);
+    const isClickInsidewhatClose = whatClose.contains(event.target);
+    const isClickInsidetalkBtn = talkBtn.contains(event.target);
+    const isClickInsidewhatBtn = whatBtn.contains(event.target);
+  
+    if (!isClickInsideiBtn && !isClickInsideiModal &&
+      !isClickInsidetalkClose && !isClickInsidewhatClose && 
+      ! isClickInsidetalkBtn && !isClickInsidewhatBtn) {
+      iModal.style.display = "none";
+    } 
 
-  //displays collectionPage
-  noModal();
+    //displays collectionPage
+    noModal();
 });
 
 
 // brings z-index hierarchy of Modals forward with a click
 document.addEventListener('click', function(event) {
-  const isClickInsidetalkModal = talkModal.contains(event.target);
-  const isClickInsidewhatModal = whatModal.contains(event.target);
-  const isClickInsidetalkBtn = talkBtn.contains(event.target);
-  const isClickInsidewhatBtn = whatBtn.contains(event.target);
-  
-  if (isClickInsidetalkModal || isClickInsidetalkBtn) {
-    talkModal.style.zIndex = "1";
+    const isClickInsidetalkModal = talkModal.contains(event.target);
+    const isClickInsidewhatModal = whatModal.contains(event.target);
+    const isClickInsidetalkBtn = talkBtn.contains(event.target);
+    const isClickInsidewhatBtn = whatBtn.contains(event.target);
+    
+    if (isClickInsidetalkModal || isClickInsidetalkBtn) {
+      talkModal.style.zIndex = "1";
 
-    whatModal.style.zIndex = "0";
-  } else if (isClickInsidewhatModal || isClickInsidewhatBtn) {
-    whatModal.style.zIndex = "1";
+      whatModal.style.zIndex = "0";
+    } else if (isClickInsidewhatModal || isClickInsidewhatBtn) {
+      whatModal.style.zIndex = "1";
 
-    talkModal.style.zIndex = "0";
-  };
+      talkModal.style.zIndex = "0";
+    };
 });
 
 
@@ -107,13 +107,37 @@ whatBtn.onclick = function() {
 
 // When the user clicks on <span> (x), close the modal
 talkClose.onclick = function() {
-  talkModal.style.display = "none";
-  noModal();
+    talkModal.style.display = "none";
+    noModal();
 };
 whatClose.onclick = function() {
-  whatModal.style.display = "none";
-  noModal();
+    whatModal.style.display = "none";
+    noModal();
 };
+
+
+// Textarea autoExpand
+document.addEventListener('input', function (event) {
+    if (event.target.tagName.toLowerCase() !== 'textarea') return;
+    autoExpand(event.target);
+}, false);
+
+var autoExpand = function(field){
+    // Reset field height
+    field.style.height = 'inherit';
+
+    // Get the computed styles for the element
+    var computed = window.getComputedStyle(field);
+
+    // Calculate the height
+    var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                + parseInt(computed.getPropertyValue('padding-top'), 10)
+                + field.scrollHeight
+                + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+                + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+      field.style.height = height + 'px';
+}
 
 
 // Copy email from whatModal
@@ -230,13 +254,37 @@ async function getData() {
                 const date = document.createElement('div');
                 //const data = `${item._id}`;
                 const dataUnit = document.createElement("div");
-                 
+                const row = document.createElement("div");
+                row.classList.add("col")
+
+                function style(elem){
+                  elem.classList.add("col-md-2");
+                  //elem.style.gridColumn = "end";
+                  //elem.style.background = "grey";
+                  //elem.style.borderRadius = "30px 30px 30px 30px;";
+                  //elem.style.width = "100%";
+                  //elem.style.height = "100%";
+                  //elem.style.padding = "10px";
+                };
+                style(row);
+                //style(country);
+                //style(date);
+                answer.classList.add("col-md-10")
+                answer.style.border = "2px black solid"; 
+                answer.style.borderRadius = "30px 10px 30px 30px;";
+                answer.style.minWidth = "400px";
+                dataUnit.classList.add("row");
+                dataUnit.style.border = "2px black solid"; 
+                dataUnit.style.height = "100%"; 
+                dataUnit.style.width = "100%";
+
                 //puts each item of data into a unit to display in HTML
                 answer.textContent = `${item.answer}`;
                 country.textContent = `${item.country}`;
                 const dateString = new Date(item.date).toLocaleString();
                 date.textContent = dateString;
-                dataUnit.append(answer, country, date);
+                row.append(country, date)
+                dataUnit.append(answer, row);
                 collection.append(dataUnit)
                 dataID.push(item._id);
               }

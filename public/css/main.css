@@ -263,7 +263,6 @@ body {
 /* ANSWERS & RESPONSES */
 
 #collectionPage {
-
   display: none; /* hides by default */
   overflow: auto; /* Enable scroll if needed */
   top: -50px;
@@ -273,6 +272,17 @@ body {
 }
 #answer-collection{
   color: black;
+  display: ;
+}
+#cpQuestion {
+  font-size: 15px;
+  text-align: right;
+  background-color: white;
+  width: 80%;
+  margin: 20px;
+  padding: 10px 60px 10px 20px;
+  border: 2px solid black;
+  border-radius: 30px 10px 30px 30px;
 }
 .item {
   color: var(--mainDark);

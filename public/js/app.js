@@ -9,7 +9,8 @@ const modal = document.querySelector('.modal');
 talkModal.style.display = "block"; //required for noModal(){if()}
 
 // Get the button that opens the modal
-const iBtn = document.getElementById("iBtn")
+const iBtn = document.getElementById("iBtn");
+const iGrid =  document.querySelector(".iGrid");
 const talkBtn = document.getElementById("talkBtn");
 const whatBtn = document.getElementById("whatBtn");
 
@@ -20,136 +21,141 @@ const whatClose = document.getElementsByClassName("what-close")[0];
 // brings iModal forward when clicking iBtn 
 // and closes iModal when clicking again
 iBtn.addEventListener('click', function() {
-    if(iModal.style.display === "none") {
-      iModal.style.display = "block";
-      iModal.style.zIndex = "1";
-      whatModal.style.zIndex = "0";
-      talkModal.style.zIndex = "0";
-    } else {
-      iModal.style.display = "none";
-    };
+      if(iModal.style.display === "none") {
+        iModal.style.display = "block";
+        iModal.style.zIndex = "3";
+        iGrid.style.zIndex = "3";
+        iBtn.style.zIndex = "3";
+        whatModal.style.zIndex = "2";
+        talkModal.style.zIndex = "2";
+      } else {
+        iModal.style.display = "none";
+        iGrid.style.zIndex = "2";
+        iBtn.style.zIndex = "2";
+      };
 
-    //displays collectionPage
-    noModal();
+      //displays collectionPage
+      //noModal();
 });
 
 
 /* if all modal windows are closed, display collectionPage,
 but if collectionPage is already displayed, make no change. */
 function noModal() {
-    if (talkModal.style.display !== "block" && (iModal.style.display !== "block" && whatModal.style.display !== "block")){
-      loadCollectionPage();
-    } else if (collectionPage.style.display === "block") {
-      collectionPage.style.display = "block";
-    } else {
-      collectionPage.style.display = "none";
-    };
+      if (talkModal.style.display !== "block" && (iModal.style.display !== "block" && whatModal.style.display !== "block")){
+            landingGet();
+            loadCollectionPageStyle();
+      } else if (collectionPage.style.display === "block") {
+            collectionPage.style.display = "block";
+
+      } else {
+            collectionPage.style.display = "none";
+      };
 };
 
-function loadCollectionPage() {
-    const topBarGrid = document.querySelector(".TOP-BAR-GRID");
-    topBarGrid.style.backgroundColor = "white";
-    iBtn.style.color = "black";
-    iBtn.style.borderColor = "black";
-    collectionPage.style.display = "block";
-    body.style.background = "white";
-}
+function loadCollectionPageStyle() {
+      const topBarGrid = document.querySelector(".TOP-BAR-GRID");
+      topBarGrid.style.backgroundColor = "white";
+      iBtn.style.color = "black";
+      iBtn.style.borderColor = "black";
+      collectionPage.style.display = "block";
+      body.style.background = "white";
+      
+};
 
 
 //clicking anywhere besides these buttons closes iModal
 document.addEventListener('click', function(event) {
-    const isClickInsideiBtn = iBtn.contains(event.target);
-    const isClickInsideiModal = iModal.contains(event.target);
-    const isClickInsidetalkClose = talkClose.contains(event.target);
-    const isClickInsidewhatClose = whatClose.contains(event.target);
-    const isClickInsidetalkBtn = talkBtn.contains(event.target);
-    const isClickInsidewhatBtn = whatBtn.contains(event.target);
-  
-    if (!isClickInsideiBtn && !isClickInsideiModal &&
-      !isClickInsidetalkClose && !isClickInsidewhatClose && 
-      ! isClickInsidetalkBtn && !isClickInsidewhatBtn) {
-      iModal.style.display = "none";
-    } 
+      const isClickInsideiBtn = iBtn.contains(event.target);
+      const isClickInsideiModal = iModal.contains(event.target);
+      const isClickInsidetalkClose = talkClose.contains(event.target);
+      const isClickInsidewhatClose = whatClose.contains(event.target);
+      const isClickInsidetalkBtn = talkBtn.contains(event.target);
+      const isClickInsidewhatBtn = whatBtn.contains(event.target);
+    
+      if (!isClickInsideiBtn && !isClickInsideiModal &&
+            !isClickInsidetalkClose && !isClickInsidewhatClose && 
+            ! isClickInsidetalkBtn && !isClickInsidewhatBtn) {
+            iModal.style.display = "none";
+      } 
 
-    //displays collectionPage
-    noModal();
+      //displays collectionPage
+      //noModal();
 });
 
 
 // brings z-index hierarchy of Modals forward with a click
 document.addEventListener('click', function(event) {
-    const isClickInsidetalkModal = talkModal.contains(event.target);
-    const isClickInsidewhatModal = whatModal.contains(event.target);
-    const isClickInsidetalkBtn = talkBtn.contains(event.target);
-    const isClickInsidewhatBtn = whatBtn.contains(event.target);
-    
-    if (isClickInsidetalkModal || isClickInsidetalkBtn) {
-      talkModal.style.zIndex = "1";
-
-      whatModal.style.zIndex = "0";
-    } else if (isClickInsidewhatModal || isClickInsidewhatBtn) {
-      whatModal.style.zIndex = "1";
-
-      talkModal.style.zIndex = "0";
-    };
+      const isClickInsidetalkModal = talkModal.contains(event.target);
+      const isClickInsidewhatModal = whatModal.contains(event.target);
+      const isClickInsidetalkBtn = talkBtn.contains(event.target);
+      const isClickInsidewhatBtn = whatBtn.contains(event.target);
+      
+      if (isClickInsidetalkModal || isClickInsidetalkBtn) {
+            talkModal.style.zIndex = "3";
+            whatModal.style.zIndex = "2";
+      } else if (isClickInsidewhatModal || isClickInsidewhatBtn) {
+            whatModal.style.zIndex = "3";
+            talkModal.style.zIndex = "2";
+      };
 });
 
 
 
 // When the user clicks on the NavBar button, open the modal
 talkBtn.onclick = function() {
-  talkModal.style.display = "block";
+      talkModal.style.display = "block";
 };
 whatBtn.onclick = function() {
-    whatModal.style.display = "block";
+      whatModal.style.display = "block";
   };
 
 
 // When the user clicks on <span> (x), close the modal
 talkClose.onclick = function() {
-    talkModal.style.display = "none";
-    noModal();
+      talkModal.style.display = "none";
+      noModal();
 };
 whatClose.onclick = function() {
-    whatModal.style.display = "none";
-    noModal();
+      whatModal.style.display = "none";
+      noModal();
 };
 
 
 // Textarea autoExpand
 document.addEventListener('input', function (event) {
-    if (event.target.tagName.toLowerCase() !== 'textarea') return;
-    autoExpand(event.target);
+      if (event.target.tagName.toLowerCase() !== 'textarea') {return};
+      autoExpand(event.target);
 }, false);
 
 var autoExpand = function(field){
-    // Reset field height
-    field.style.height = 'inherit';
+      // Reset field height
+      field.style.height = 'inherit';
 
-    // Get the computed styles for the element
-    var computed = window.getComputedStyle(field);
+      // Get the computed styles for the element
+      var computed = window.getComputedStyle(field);
 
-    // Calculate the height
-    var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
-                + parseInt(computed.getPropertyValue('padding-top'), 10)
-                + field.scrollHeight
-                + parseInt(computed.getPropertyValue('padding-bottom'), 10)
-                + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+      // Calculate the height
+      var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                  + parseInt(computed.getPropertyValue('padding-top'), 10)
+                  + field.scrollHeight
+                  + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+                  + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
-      field.style.height = height + 'px';
+        field.style.height = height + 'px';
 }
 
-
+/* NOT NEEDED
 // Copy email from whatModal
 function copyEmail() {
-  var tempInput = document.createElement("input");
-  tempInput.value = "talk@progress.com";
-  document.body.appendChild(tempInput);
-  tempInput.select();
-  document.execCommand("copy");
-  document.body.removeChild(tempInput);
+      var tempInput = document.createElement("input");
+      tempInput.value = "talk@progress.com";
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
 }
-
+*/
 
 
 //DRAGGABLE
@@ -158,43 +164,43 @@ dragElement(talkModal);
 dragElement(whatModal);
 
 function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById(elmnt.id + "Header")) {
-      // if present, the header is where you move the DIV from:
-      document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
-    } else {
-      // otherwise, move the DIV from anywhere inside the DIV:
-      elmnt.onmousedown = dragMouseDown;
-    };
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  };
+      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      if (document.getElementById(elmnt.id + "Header")) {
+            // if present, the header is where you move the DIV from:
+            document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+      } else {
+            // otherwise, move the DIV from anywhere inside the DIV:
+            elmnt.onmousedown = dragMouseDown;
+      };
+      function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+      };
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  };
+      function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      };
 
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
-  };
+      function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+      };
 };
 
 
@@ -205,7 +211,7 @@ const form = document.getElementById("input-form");
 const inputText = document.getElementById("answer-text");
 const inputCountry = document.getElementById("country");
 const sendBtn = document.querySelector(".sendBtn");
-var collectionBtn = document.getElementById("collectionBtn");
+const collectionBtn = document.getElementById("collectionBtn");
 const collectionPage = document.getElementById("collectionPage");
 const collection = document.getElementById("answer-collection");
 
@@ -213,109 +219,140 @@ const collection = document.getElementById("answer-collection");
 
 // counts the text of input when typing
 function CountRemaining() {
-    var stringCount = document.getElementById("answer-text").value.length;
-    document.getElementById("stringCounter").textContent = stringCount + "/600";
-    setTimeout(function(){ CountRemaining(); },0);
+      var stringCount = document.getElementById("answer-text").value.length;
+      document.getElementById("stringCounter").textContent = stringCount + "/600";
+      setTimeout(function(){ CountRemaining(); },0);
 };
 
 CountRemaining();
 
-/*
-//right now the collectionBtn is not working properly
-// because it doesn't get the full data
-function dataChange(){
-  getNewData();
-  collectionBtn.style.color = "red";
-  setTimeout(function(){collectionBtn.style.color = "grey";},1000);
-  };
-dataChange();
-*/
+
+// PAGINATION
+// global JavaScript variables
 
 // stores json data _id from database to avoid redundant appending on display
 const dataID = [];
+const dataIterArr = new Array;
+var backCounter = 0;
+const nextBtn = document.getElementById("next");
+
 
 // GET w/ fetch()
-async function getData() {
-        const response = await fetch('/api');
-        const data = await response.json();
-        console.log("response=", response);
-        console.log("data=", data);
-        var count = data.length;
-        collectionBtn.textContent = count;
-        
 
-        //create divs for each data property
-        //and return the data as one unit
-            for (item of data) {
-              if (dataID.includes(item._id) !== true){
-             
-                const answer = document.createElement('div');
-                const country = document.createElement('div');
-                const date = document.createElement('div');
-                //const data = `${item._id}`;
-                const dataUnit = document.createElement("div");
-                const row = document.createElement("div");
-                row.classList.add("col")
+async function getDataCount() {
+      const response = await fetch('/api');
+      const data = await response.json();
 
-                function style(elem){
-                  elem.classList.add("col-md-2");
-                  //elem.style.gridColumn = "end";
-                  //elem.style.background = "grey";
-                  //elem.style.borderRadius = "30px 30px 30px 30px;";
-                  //elem.style.width = "100%";
-                  //elem.style.height = "100%";
-                  //elem.style.padding = "10px";
-                };
-                style(row);
-                //style(country);
-                //style(date);
-                answer.classList.add("col-md-10")
-                answer.style.border = "2px black solid"; 
-                answer.style.borderRadius = "30px 10px 30px 30px;";
-                answer.style.minWidth = "400px";
-                dataUnit.classList.add("row");
-                dataUnit.style.border = "2px black solid"; 
-                dataUnit.style.height = "100%"; 
-                dataUnit.style.width = "100%";
+      var count = data.length;
+      collectionBtn.textContent = count;
 
-                //puts each item of data into a unit to display in HTML
-                answer.textContent = `${item.answer}`;
-                country.textContent = `${item.country}`;
-                const dateString = new Date(item.date).toLocaleString();
-                date.textContent = dateString;
-                row.append(country, date)
-                dataUnit.append(answer, row);
-                collection.append(dataUnit)
-                dataID.push(item._id);
-              }
-                
-            };
 };
+getDataCount();
 
 
-/*
-//Failed Attempt to distinguish the data by adding "old" and "new" class
-                function appendNewData(){
-                  // if the element has old class, then do thing
-                  // if the element doesn't have any class, then add class "new"
-                  // only append to collection "new" class
-                  dataUnit.append(answer, country, date);
-                  dataUnit.classList.add("dataUnit");
-                  $(".dataUnit").filter(':not([class])').addClass('new');
 
-                  console.log(document.getElementsByClassName("new"));
+async function getDataNew() {
+      const response = await fetch('/api');
+      const data = await response.json();
 
-                  collection.append(document.getElementsByClassName("new"));
-                  
-                  $(".new").addClass("old");
-                  $('.old').removeClass("new");
-                }
-                appendNewData();
+      for (const item of data){
+            if (collectionPage.style.display === "block" && dataID.includes(item._id) === false && /*NEED to confirm this works*/item.ID === data.length){
+           
+                  //create divs for each data property
+                  const answer = document.createElement('div');
+                  const country = document.createElement('div');
+                  const date = document.createElement('div');
+                  const dataUnit = document.createElement("div");
+                  const row = document.createElement("div");
+
+                  //puts each item of data into a unit to display in HTML
+                  answer.textContent = `${item.answer}`;
+                  country.textContent = `${item.country}`;
+                  const dateString = new Date(item.date).toLocaleString();
+                  date.textContent = dateString;
+
+                  //combine data as one unit
+                  row.append(country, date)
+                  dataUnit.append(answer, row);
+
+                  //prepend new data to collection
+                  collection.prepend(dataUnit);
+                  dataID.push(item._id);
+                  backCounter += 1;
+                  console.log("getNew = ", item);
             };
       };
-*/
+};
 
-getData();
+async function getDataIter() {
+      const response = await fetch('/api');
+      const data = await response.json();
+
+      const mark = data.length-backCounter;
+
+      for(var i = mark - 1; i >= mark-10; i--) {
+            dataIterArr.push(data[i]);
+            backCounter+=1;
+
+            console.log("getDataIter = ", data[i]);
+            console.log("backCoutner = ", backCounter);
+      };
+
+
+      for (const item of dataIterArr){
+            if (dataID.includes(item._id) === false){
+
+                  //create divs for each data property
+                  const answer = document.createElement('div');
+                  const country = document.createElement('div');
+                  const date = document.createElement('div');
+                  const dataUnit = document.createElement("div");
+                  const row = document.createElement("div");
+                  
+                  //puts each item of data into a unit to display in HTML
+                  answer.textContent = `${item.answer}`;
+                  country.textContent = `${item.country}`;
+                  const dateString = new Date(item.date).toLocaleString();
+                  date.textContent = dateString;
+
+                  //combine data as one unit
+                  row.append(country, date);
+                  dataUnit.append(answer, row);
+                  
+                  //append 10 data to collection
+                  collection.append(dataUnit);
+                  dataID.push(item._id);
+                  console.log("appendDataIter = ", item);
+            };
+      };
+};
+   /*
+            for (item of data) {
+
+                row.classList.add("col");
+  
+                        function style(elem){
+                          elem.classList.add("col-md-2");
+                          //elem.style.gridColumn = "end";
+                          //elem.style.background = "grey";
+                          //elem.style.borderRadius = "30px 30px 30px 30px;";
+                          //elem.style.width = "100
+                          %";
+                          //elem.style.height = "100%";
+                          //elem.style.padding = "10px";
+                        };
+                        style(row);
+                        //style(country);
+                        //style(date);
+                        answer.classList.add("col-md-10")
+                        answer.style.border = "2px black solid"; 
+                        answer.style.borderRadius = "30px 10px 30px 30px;";
+                        answer.style.minWidth = "400px";
+                        dataUnit.classList.add("row");
+                        dataUnit.style.border = "2px black solid"; 
+                        dataUnit.style.height = "100%"; 
+                        dataUnit.style.width = "100%";
+*/
 
 
 
@@ -325,127 +362,89 @@ sendBtn.addEventListener('click', (e) => {
 
     if (inputText.value === null || inputText.value.match(/^ *$/) !== null) {
         alert("Please share your desires!");
-
     } else {
-        console.log("answer=", inputText.value);
-        console.log("country=", inputCountry.value);
+            console.log("answer = ", inputText.value);
+            console.log("country = ", inputCountry.value);
 
-        async function postData() {
+            async function postData() {
 
-            const data = {
-              answer: inputText.value,
-              country: inputCountry.value,
-              date: Date.now()
+                  const data = {
+                        answer: inputText.value,
+                        country: inputCountry.value,
+                        date: Date.now(),
+                      
+                              
+                  };
+
+                  const options = {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                  };
+
+                  form.reset();
+
+                  const response = await fetch('/api', options);
+                  const json = await response.json(data);
+                  
+                  console.log("post =", JSON.stringify(data));
             };
 
-            form.reset();
+            postData();
+            
+            talkModal.style.display = "none";
 
-            const options = {
-              method: 'POST',
-              headers: {
-              'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data)
-             
-            };
-
-            const response = await fetch('/api', options);
-            const json = await response.json(data);
-            console.log(data);
-
-
-        };
-
-        postData();
-        getData();
-        talkModal.style.display = "none";
+            // if all modal windows are closed, display the answer-collection page and getDataNew() & getDataIter()
+            //landingGet();
+            getDataNew();
+            
+            getDataCount();
+            noModal();
       };
-
-      // if all modal windows are closed, display the answer-collection page
-      noModal();
-
 });
 
 
-// whenever there is an update in data, update the page as well
-/* function dataUpdate() {
-  if (collection = ) {
-    getExistingData()
-  }
-}
-*/
+function landingGet() {
+      if (collectionPage.style.display !== "block"){
+            getDataIter();
+      };
+};
+
 
 // by clicking the answer-collection button, display the page
 collectionBtn.addEventListener('click',  () => {
- loadCollectionPage();
-})
+      if (collectionPage.style.display === "none"){
+            getDataIter();
+            loadCollectionPageStyle();
 
 
+            //NEEDS MORE WORKING HERE 
+      } else if(collectionPage.style.display === "block"){
+        for(var i = 0; i <= 10; i++){
+          if(dataID[i].includes() === false){
+            getDataNew();
+          }
+        }
+      
+          
+      };
+});
 
+
+//Load more content by scroll
+
+nextBtn.addEventListener('click', function(){
+  getDataIter();
+});
 
 
 /*
-// what I presented with Talk&Progress 23.06.20 evening
-let answers = [ ];
-
-const addAnswers = (e) => {
-  e.preventDefault();
-  let data = {
-    text: input.value,
-    location: "country",
-    date: Date.now()
+$(window).scroll(function () {
+  // End of the document reached?
+  if ($("#collectionPage").height() - $(this).height() == $(this).scrollTop()) {
+    getDataIter();
   }
-  answers.push(data);
-  form.reset();
-  console.warn('added', {answers} );
-  collection.textContent = '\n' + JSON.stringify(answers, '\t', 2);
-
-  localStorage.setItem('answers-collection', JSON.stringify(answers));
-}
-
-document.addEventListener('DOMContentLoaded', ()=>{
-  sendBtn.addEventListener('click', addAnswers);
 });
 */
-
-
-
-
-/* 
-// dcode or some other guy's code 23.06.20 morning
-const data = {
-  text:"aaaa",
-  location:"bbbb",
-  date:"cccc"
-}
-const url = "data.json"
-async function getData() {
-  const response = await fetch(url);
-  const data = await response.json();
-  const { text, location, date } = data;
-  const collection = document.getElementById("answer-collection");
-  collection.textContent = text + "<br>" + location + "<br>" + date;
-  console.log(data);
- 
-}
-
-getData();
-
-const otherPram = {
-  headers: {
-    "content-type":"application/json; charset=UTF-8"
-  },
-  body: data,
-  method: "POST"
-};
-
-sendBtn.addEventListener("click", function() {
-  talkModal.style.display = "none";
-  fetch(url, otherPram)
-  .then(data => {return data.json()})
-  .then(res => {console.log(res)})
-  .catch(error => console.log(error))
-});
-*/
-
-

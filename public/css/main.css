@@ -15,6 +15,7 @@
 body {
   background: black;
   font-family: Authentic Sans;
+  
 }
 
 .container{
@@ -24,8 +25,8 @@ body {
 
 .TOP-BAR-GRID{
   top: 0px;
-  padding-top:10px;
-  position: fixed;
+  padding-top: 10px;
+  z-index: 1;
 }
 
 .app-title {
@@ -49,7 +50,7 @@ body {
 
 .iGrid{
   position:fixed;
-  z-index:1;
+  z-index:2;
  
 }
 
@@ -60,7 +61,7 @@ body {
   padding: 0 2px 0 2px;
   border: 2px solid white;
   border-radius: 30px; 
-  z-index: 1;
+  z-index: 2;
 }
 #iBtn:hover {
   text-decoration: none;
@@ -120,7 +121,6 @@ body {
   padding: 20px 25px 30px 20px;
   width: 400px;
   height: 400px; 
-  overflow: auto; /* Enable scroll if needed */
   background-color:  white; /* Black w/ opacity */
   z-index: 1;
 }
@@ -205,6 +205,7 @@ body {
   margin: 20px 20px 100px 20px;
   color: white;
   font-size: 25px;
+
 }
 #answer-text::placeholder {
   color: white;
@@ -257,6 +258,7 @@ body {
 #email{
   color:  var(--mainPurple);
   font-size: 25px;
+  padding-right: 50px;
 }
 
 
@@ -264,15 +266,15 @@ body {
 
 #collectionPage {
   display: none; /* hides by default */
-  overflow: auto; /* Enable scroll if needed */
+  overflow-y: auto; /* Enable scroll if needed */
   top: -50px;
   padding: 200px 20px 0px 20px;
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 #answer-collection{
   color: black;
-  display: ;
 }
 #cpQuestion {
   font-size: 15px;
@@ -285,14 +287,14 @@ body {
   border-radius: 30px 10px 30px 30px;
 }
 .item {
-  color: var(--mainDark);
+  color: black;
   border-radius: 0.25rem;
   transition: all 1s ease-in-out;
-  border: 0.15rem solid var(--mainDark);
+  border: 0.15rem solid white;
 }
 .item:hover {
-  border-color: var(--darkBlue);
-  color: var(--darkBlue);
+  border-color: black;
+  color: white;
 }
 .remove-icon {
   cursor: pointer;

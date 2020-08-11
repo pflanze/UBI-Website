@@ -11,12 +11,15 @@ database.loadDatabase();
 
 
 app.get('/api',  (request, response) => {
-    database.find({}, (err, data) => {
-        if (err) {
-            response.end();
-            return;
-        }
-        response.json(data)
+    database.find({}).sort({ date: 1 }).exec(function (err, data) { 
+            if (err) {
+                response.end();
+                return;
+            }
+            response.json(data)
+            
+         
+            
     });
 });
 

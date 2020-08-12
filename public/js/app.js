@@ -104,9 +104,17 @@ document.addEventListener('click', function(event) {
 
 // When the user clicks on the NavBar button, open the modal
 talkBtn.onclick = function() {
+      talkModal.style.top = "10px";
+      talkModal.style.right = "0";
+      talkModal.style.bottom = "0";
+      talkModal.style.left = "430px";
       talkModal.style.display = "block";
 };
 whatBtn.onclick = function() {
+      whatModal.style.top = "10px";
+      whatModal.style.right = "0";
+      whatModal.style.bottom = "0";
+      whatModal.style.left = "900px";
       whatModal.style.display = "block";
   };
 
@@ -114,10 +122,18 @@ whatBtn.onclick = function() {
 // When the user clicks on <span> (x), close the modal
 talkClose.onclick = function() {
       talkModal.style.display = "none";
+      talkModal.style.top = "10px";
+      talkModal.style.right = "0";
+      talkModal.style.bottom = "0";
+      talkModal.style.left = "430px";
       noModal();
 };
 whatClose.onclick = function() {
       whatModal.style.display = "none";
+      whatModal.style.top = "10px";
+      whatModal.style.right = "0";
+      whatModal.style.bottom = "0";
+      whatModal.style.left = "900px";
       noModal();
 };
 
@@ -203,7 +219,6 @@ function dragElement(elmnt) {
       };
 };
 
-
 //ANSWER SUBMISSIONS and DATA STORAGE
 
   //Get four elements and assign them to variables.
@@ -259,11 +274,25 @@ async function getDataNew() {
             if (collectionPage.style.display === "block" && dataID.includes(item._id) === false && /*NEED to confirm this works*/item.ID === data.length){
            
                   //create divs for each data property
+                  const filler = document.createElement('div');
                   const answer = document.createElement('div');
                   const country = document.createElement('div');
                   const date = document.createElement('div');
                   const dataUnit = document.createElement("div");
                   const row = document.createElement("div");
+
+                  //css bootstrap
+                  filler.classList.add("col-md-5");
+                  
+                  answer.classList.add("col-md-5");
+                  answer.classList.add("answer");
+
+                  row.classList.add("col-md-2");
+                  country.classList.add("country");
+                  date.classList.add("date");
+
+                  dataUnit.classList.add("row");
+                  dataUnit.classList.add("dataUnit");
 
                   //puts each item of data into a unit to display in HTML
                   answer.textContent = `${item.answer}`;
@@ -303,11 +332,26 @@ async function getDataIter() {
             if (dataID.includes(item._id) === false){
 
                   //create divs for each data property
+                  const filler = document.createElement('div');
                   const answer = document.createElement('div');
                   const country = document.createElement('div');
                   const date = document.createElement('div');
                   const dataUnit = document.createElement("div");
                   const row = document.createElement("div");
+
+                  //css bootstrap
+                  filler.classList.add("col-md-5");
+                  
+                  answer.classList.add("col-md-5");
+                  answer.classList.add("answer");
+
+                  row.classList.add("col-md-2");
+                  country.classList.add("country");
+                  date.classList.add("date");
+
+                  dataUnit.classList.add("row");
+                  dataUnit.classList.add("dataUnit");
+
                   
                   //puts each item of data into a unit to display in HTML
                   answer.textContent = `${item.answer}`;
@@ -317,7 +361,7 @@ async function getDataIter() {
 
                   //combine data as one unit
                   row.append(country, date);
-                  dataUnit.append(answer, row);
+                  dataUnit.append(filler,answer, row);
                   
                   //append 10 data to collection
                   collection.append(dataUnit);
@@ -326,33 +370,7 @@ async function getDataIter() {
             };
       };
 };
-   /*
-            for (item of data) {
 
-                row.classList.add("col");
-  
-                        function style(elem){
-                          elem.classList.add("col-md-2");
-                          //elem.style.gridColumn = "end";
-                          //elem.style.background = "grey";
-                          //elem.style.borderRadius = "30px 30px 30px 30px;";
-                          //elem.style.width = "100
-                          %";
-                          //elem.style.height = "100%";
-                          //elem.style.padding = "10px";
-                        };
-                        style(row);
-                        //style(country);
-                        //style(date);
-                        answer.classList.add("col-md-10")
-                        answer.style.border = "2px black solid"; 
-                        answer.style.borderRadius = "30px 10px 30px 30px;";
-                        answer.style.minWidth = "400px";
-                        dataUnit.classList.add("row");
-                        dataUnit.style.border = "2px black solid"; 
-                        dataUnit.style.height = "100%"; 
-                        dataUnit.style.width = "100%";
-*/
 
 
 
@@ -415,7 +433,7 @@ function landingGet() {
 
 // by clicking the answer-collection button, display the page
 collectionBtn.addEventListener('click',  () => {
-      if (collectionPage.style.display === "none"){
+      if (collectionPage.style.display !== "block"){
             getDataIter();
             loadCollectionPageStyle();
 

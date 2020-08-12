@@ -76,6 +76,7 @@ body {
   margin-right: 20px;
   bottom:10px;
   z-index: 1;
+
 }
 #talkBtn:hover {
   opacity: 80%;
@@ -230,6 +231,7 @@ body {
 }
 .sendBtn:hover {
   color: var(--mainPurple);
+  cursor: pointer;
 }
 .emailBtn{
   background-color: var(--mainPurple);
@@ -272,19 +274,49 @@ body {
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index:-1;
 }
 #answer-collection{
   color: black;
 }
 #cpQuestion {
   font-size: 15px;
-  text-align: right;
+  text-align: center;
   background-color: white;
-  width: 80%;
-  margin: 20px;
-  padding: 10px 60px 10px 20px;
+  min-width: 300px;
+  max-width: 350px;
+  margin: 20px 0 20px 125px;
+  padding: 10px 0px 10px 0px;
   border: 2px solid black;
   border-radius: 30px 10px 30px 30px;
+}
+.answer{
+  color: white;
+  background: black;
+  border: 2px solid none; 
+  border-radius: 10px 30px 30px 30px;
+  min-width: 600px;
+  max-width: 800px;
+}
+.country{
+  color: white;
+  width: 100px;
+  text-align: center;
+  background: var(--mainGrey);
+  margin-bottom: 10px;
+  border: 2px solid none; 
+  border-radius: 10px 10px 10px 10px;
+}
+.date{
+  color: white;
+  width: 100px;
+  text-align: center;
+  background: var(--mainGrey);
+  border: 2px solid none; 
+  border-radius: 10px 10px 10px 10px;
+}
+.dataUnit{
+padding-bottom: 10px;
 }
 .item {
   color: black;
@@ -301,4 +333,20 @@ body {
 }
 .remove-icon:hover {
   transform: scale(1.4);
+}
+#next{
+  background-color: var(--neonGreen);
+  color: white;
+  font-size: 25px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  box-shadow: none;
+  position: absolute;
+  right: 200px;
+  margin-top: 50px;
+}
+#next:hover {
+  color: var(--mainPurple);
+  cursor: pointer;
 }

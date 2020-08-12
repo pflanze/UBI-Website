@@ -61,7 +61,7 @@
 
 
             <!-------------------------------- TOP BAR  -------------------------------->
-            <div name="TOP-BAR-GRID" class="TOP-BAR-GRID row row-no-gutters col-12">
+            <div name="TOP-BAR-GRID" class="TOP-BAR-GRID row row-no-gutters">
                   
                   <div class="filler col-xs-3 col-md-6"></div>
 
@@ -91,14 +91,16 @@
               <div name="MODAL-GRID" class="row row-no-gutters col-12 text-center">
 
                     <!-- talkMODAL -->        
-                    <div id="talkModal" class="modal">
+                    <div id="talkModal" class="modal" draggable="true" ondragstart="console.log('dragging')">
 
                           <div id="talkModalHeader">
                                 TALK
                                 <span class="close talk-close">&times;</span>
                           </div>
 
-                          <div class="talk-question my-5">
+                          <div class="talk-question my-5" style="z-index: 10;" draggable="true"
+                          ondragstart="event.preventDefault();
+                                       event.stopPropagation();">
                                 <p id="question">
                                       What would you do with your time if you didn’t have to think about making income?
                                 </p>
@@ -106,18 +108,20 @@
 
                           <form id="input-form" class="form-inline">
 
-                                <textarea id="answer-text" class="form-control form-control-lg" 
+                                <textarea id="answer-text" class="form-control form-control-lg" style="z-index: 10;"
                                 type='text' minlength="1" maxlength="600" size="10" 
-                                placeholder="Write here ..." pattern="^\d*[a-zA-Z][a-zA-Z0-9]*$" required></textarea>
+                                placeholder="Write here ..." pattern="^\d*[a-zA-Z][a-zA-Z0-9]*$" required draggable="true"
+                                ondragstart="event.preventDefault();
+                                             event.stopPropagation();"></textarea>
 
                                 <div class="row talk-modal-bottom-row">
-                                      <p id="stringCounter" class="w-20 my-2 mx-2 px-4 text-center font-weight-bold letter-count"></p>
-                                      <button class="btn btn-lg my-2 mx-2 sendBtn" type="submit">
+                                      <p id="stringCounter" class="w-20 my-2 mx-2 px-4 text-center font-weight-bold letter-count" style="z-index: 10;"></p>
+                                      <button class="btn btn-lg my-2 mx-2 sendBtn" type="submit" style="z-index: 10;">
                                             <span>Send</span>
                                       </button>
                                 </div>
 
-                                <div class="country-selector" style='text-align:center;'>
+                                <div class="country-selector" style="text-align:center; z-index:10;">
                                       <script type= "text/javascript" src = "js/countries.js"></script>
                                             Where do you live now?    
                                       <select id="country" name ="country"></select>
@@ -165,15 +169,19 @@
 
 
             <!------------------------------------ numCntPage -------------------------------------->
-            <div id="collectionPage" class="row row-no-gutters ">
-                  <div id="cpQuestion">
-                        What would you do with your time if you<br> didn’t have to think about making income?
+            <div id="collectionPage" class="row row-no-gutters">
+                  <div class="row">
+                        <div class="col-md-7"> </div>
+                        <div id="cpQuestion" class="col-md-3">
+                          What would you do with your time if you<br> didn’t have to think about making income?
+                        </div>
                   </div>
+                 
 
-                  <div id="answer-collection" class="col-md-12"></div>
+                  <div id="answer-collection"></div>
                   <div class="loading" id="loading"></div>
                   
-                  <button type="button" id="next">load more...</button>
+                  <button type="button" id="next" class="text-right">load more...</button>
                   
             </div>
 

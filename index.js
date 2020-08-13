@@ -49,3 +49,7 @@ app.post('/api', (request, response) => {
     response.json(data);
 
 });
+
+
+exports.app = app
+exports.database = database

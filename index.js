@@ -11,18 +11,25 @@ app.use(express.static('public'));
 app.use(express.json({ limit: '1mb'}));
 
 
-database.getAutoincrementId = function (cb) {
+database.getAutoincrementId = function (cb) { 
+    console.log("auto 1")
     this.update(
         { _id: '__autoid__' },
         { $inc: { seq: 1 } },
         { upsert: true, returnUpdatedDocs: true },
         function (err, affected, autoid) { 
+            console.log("auto 2")
             cb && cb(err, autoid.seq);
         }
+        
     );
+    console.log("auto 3")
     return this;
 };
-
+function test(){
+    let data = {answer, country, date}
+    database.insert(data);
+}
 
 app.get('/api',  (request, response) => {
     database.find({}).sort({ date: 1 }).exec(function (err, data) { 
@@ -53,3 +60,4 @@ app.post('/api', (request, response) => {
 
 exports.app = app
 exports.database = database
+exports.test = test

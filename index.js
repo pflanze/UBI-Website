@@ -12,18 +12,15 @@ app.use(express.json({ limit: '1mb'}));
 
 
 database.getAutoincrementId = function (cb) { 
-    console.log("auto 1")
     this.update(
         { _id: '__autoid__' },
         { $inc: { seq: 1 } },
         { upsert: true, returnUpdatedDocs: true },
         function (err, affected, autoid) { 
-            console.log("auto 2")
             cb && cb(err, autoid.seq);
         }
         
     );
-    console.log("auto 3")
     return this;
 };
 

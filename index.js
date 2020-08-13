@@ -61,7 +61,11 @@ app.post('/api', (request, response) => {
     console.log('I got a request!');
     console.log(request.body);
     const data = request.body;
-    database.insert(data);
+    database.getAutoincrementId(
+        function (err, id) {
+            data._id = id;
+            database.insert(data);
+        });
     response.json(data);
 
 });

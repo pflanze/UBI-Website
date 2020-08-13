@@ -24,12 +24,7 @@ database.getAutoincrementId = function (cb) {
     return this;
 };
 
-function test(answer){
-    let data = {
-        answer: answer,
-        country: "CH",
-        date: 1597344941
-    }
+function insertAnswer(data){
     return database.getAutoincrementId(
         function (err, id) {
             data._id = id;
@@ -58,11 +53,7 @@ app.post('/api', (request, response) => {
     console.log('I got a request!');
     console.log(request.body);
     const data = request.body;
-    database.getAutoincrementId(
-        function (err, id) {
-            data._id = id;
-            database.insert(data);
-        });
+    insertAnswer(data);
     response.json(data);
 
 });
@@ -70,4 +61,4 @@ app.post('/api', (request, response) => {
 
 exports.app = app
 exports.database = database
-exports.test = test
+exports.insertAnswer = insertAnswer

@@ -26,9 +26,18 @@ database.getAutoincrementId = function (cb) {
     console.log("auto 3")
     return this;
 };
-function test(){
-    let data = {answer, country, date}
-    database.insert(data);
+
+function test(answer){
+    let data = {
+        answer: answer,
+        country: "CH",
+        date: 1597344941
+    }
+    return database.getAutoincrementId(
+        function (err, id) {
+            data._id = id;
+            database.insert(data);
+        });
 }
 
 app.get('/api',  (request, response) => {

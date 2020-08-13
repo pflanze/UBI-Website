@@ -50,7 +50,6 @@ app.post('/api', (request, response) => {
 
 });
 
-console.log("exports variable before setting the fields", exports);
+
 exports.app = app
 exports.database = database
-console.log("exports variable after setting the fields", exports);
